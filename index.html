@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ラーメン注文</title>
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    select, input, button { display: block; margin: 15px 0; font-size: 16px; }
+  </style>
+</head>
+<body>
+
+
+    <label for="menu">メニューを選択：</label>
+    <select id="menu">
+      <option value="ラーメン">ラーメン</option>
+      <option value="チャーシュー麺">チャーシュー麺</option>
+      <option value="味玉ラーメン">味玉ラーメン</option>
+    </select>
+
+  <h2>職員室用 注文ホーム</h2>
+
+  <label for="menu">商品を選択：</label>
+  <select id="menu">
+    <option >お茶</option>
+    <option ></option>
+    <option >味玉ラーメン</option>
+  </select>
+
+  <label for="qty">数量：</label>
+  <input type="number" id="qty" min="1" value="1">
+
+  <button onclick="submitOrder()">注文する</button>
+
+  <script>
+    let userId = "";
+
+    async function main() {
+      await liff.init({ liffId: "<<あなたのLIFF ID>>" });
+
+      if (!liff.isLoggedIn()) {
+        liff.login();
+        return;
+      }
+
+      const profile = await liff.getProfile();
+      userId = profile.userId;
+    }
+
+    async function submitOrder() {
+      const menu = document.getElementById("menu").value;
+      const qty = document.getElementById("qty").value;
+
+      const response = await fetch("<<GAS Webhook URL>>", {
+        method: "POST",
+        mode: "no-cors", // GAS対応
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId,
+          menu,
+          qty,
+        }),
+      });
+
+      alert("ご注文を受け付けました！");
+      liff.closeWindow(); // LINE内ブラウザを閉じる
+    }
+
+    main();
+  </script>
+</body>
+</html>
