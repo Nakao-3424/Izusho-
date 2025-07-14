@@ -37,43 +37,47 @@
 
   <button onclick="submitOrder()">注文する</button>
 
-  <script>
-    let userId = "";
+ <script>
+  let userId = "";
 
-    async function main() {
-      await liff.init({ liffId: "<<あなたのLIFF ID>>" });
+  async function main() {
+    await liff.init({ liffId: "<<あなたのLIFF ID>>" });
 
-      if (!liff.isLoggedIn()) {
-        liff.login();
-        return;
-      }
-
-      const profile = await liff.getProfile();
-      userId = profile.userId;
+    if (!liff.isLoggedIn()) {
+      liff.login();
+      return;
     }
 
-    async function submitOrder() {
-      const menu = document.getElementById("menu").value;
-      const qty = document.getElementById("qty").value;
+    const profile = await liff.getProfile();
+    userId = profile.userId;
+  }
 
-      const response = await fetch("<<GAS Webhook URL>>", {
-        method: "POST",
-        mode: "no-cors", // GAS対応
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId,
-          menu,
-          qty,
-        }),
-      });
+  async function submitOrder() {
+    const username = document.getElementById("username").value;
+    const from = document.getElementById("from").value;
+    const menu = document.getElementById("menu").value;
+    const qty = document.getElementById("qty").value;
 
-      alert("ご注文を受け付けました！");
-      liff.closeWindow(); // LINE内ブラウザを閉じる
-    }
+    const response = await fetch("<<GAS Webhook URL>>", {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId,
+        username,
+        from,
+        menu,
+        qty,
+      }),
+    });
 
-    main();
-  </script>
+    alert("ご注文を受け付けました！");
+    liff.closeWindow();
+  }
+
+  main();
+</script>
 </body>
 </html>
