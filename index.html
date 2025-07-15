@@ -38,10 +38,11 @@
   <button onclick="submitOrder()">注文する</button>
 
  <script>
-  let userId = "";
+  let userId = "https://script.google.com/a/macros/ict.shimanet.ed.jp/s/AKfycbyogaXm6xo8xM9rYWPVhIPV0RAt5XVd4mtKfM9XLMAYvynxwjlb0L3IXSUlqvZ_Ms4PeQ/exec
+";
 
   async function main() {
-    await liff.init({ liffId: "<<あなたのLIFF ID>>" });
+    await liff.init({ liffId: "2007744879-9k5pKl81" });
 
     if (!liff.isLoggedIn()) {
       liff.login();
