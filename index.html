@@ -38,8 +38,7 @@
   <button onclick="submitOrder()">注文する</button>
 
  <script>
-  let userId = "https://script.google.com/a/macros/ict.shimanet.ed.jp/s/AKfycbyogaXm6xo8xM9rYWPVhIPV0RAt5XVd4mtKfM9XLMAYvynxwjlb0L3IXSUlqvZ_Ms4PeQ/exec
-";
+  const response = await fetch("https://script.google.com/a/macros/ict.shimanet.ed.jp/s/AKfycbwQUepdVxzEYuO4C7Yo4BNFoHyTeU8JX3UmZU5mKmz2YA7rgGoEAPQ7n1ZqRx9vRTZliw/exec", {
 
   async function main() {
     await liff.init({ liffId: "2007744879-9k5pKl81" });
